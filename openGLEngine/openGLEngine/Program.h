@@ -43,6 +43,10 @@ public:
 			glUniform2f(uniformTrueLocation, data.getX(), data.getY());
 			return;
 		}
+		else if (uniformLocation == -1)
+		{
+			std::cout << uniformname << " does not exist in program id: " << ProgramID << std::endl;
+		}
 		glUniform2f(uniformLocation, data.getX(), data.getY());
 	};
 	void UploadUniform_vec3(const std::string uniformname, vec3f data)
@@ -54,6 +58,10 @@ public:
 			uniformLocations.push_back(std::make_pair(uniformname, uniformTrueLocation));
 			glUniform3f(uniformTrueLocation, data.getX(), data.getY(), data.getZ());
 			return;
+		}
+		else if (uniformLocation == -1)
+		{
+			std::cout << uniformname << " does not exist in program id: " << ProgramID << std::endl;
 		}
 		glUniform3f(uniformLocation, data.getX(), data.getY(), data.getZ());
 	};
@@ -67,6 +75,10 @@ public:
 			glUniform4f(uniformTrueLocation, data.getX(), data.getY(), data.getZ(), data.getW());
 			return;
 		}
+		else if (uniformLocation == -1)
+		{
+			std::cout << uniformname << " does not exist in program id: " << ProgramID << std::endl;
+		}
 		glUniform4f(uniformLocation, data.getX(), data.getY(), data.getZ(), data.getW());
 	};
 	void UploadUniform_mat2(const std::string uniformname, mat2f data, bool transpose)
@@ -78,6 +90,10 @@ public:
 			uniformLocations.push_back(std::make_pair(uniformname, uniformTrueLocation));
 			glUniformMatrix2fv(uniformTrueLocation, 1, transpose, data.getArray());
 			return;
+		}
+		else if (uniformLocation == -1)
+		{
+			std::cout << uniformname << " does not exist in program id: " << ProgramID << std::endl;
 		}
 		glUniformMatrix2fv(uniformLocation, 1, transpose, data.getArray());
 	};
@@ -91,6 +107,10 @@ public:
 			glUniformMatrix3fv(uniformTrueLocation, 1, transpose, data.getArray());
 			return;
 		}
+		else if (uniformLocation == -1)
+		{
+			std::cout << uniformname << " does not exist in program id: " << ProgramID << std::endl;
+		}
 		glUniformMatrix3fv(uniformLocation, 1, transpose, data.getArray());
 	};
 	void UploadUniform_mat4(const std::string uniformname, mat4f data, bool transpose)
@@ -103,6 +123,10 @@ public:
 			glUniformMatrix4fv(uniformTrueLocation, 1, transpose, data.getArray());
 			return;
 		}
+		else if (uniformLocation == -1)
+		{
+			std::cout << uniformname << " does not exist in program id: " << ProgramID << std::endl;
+		}
 		glUniformMatrix4fv(uniformLocation, 1, transpose, data.getArray());
 	};
 	void UploadFloat(const std::string uniformname, float data)
@@ -114,6 +138,10 @@ public:
 			uniformLocations.push_back(std::make_pair(uniformname, uniformTrueLocation));
 			glUniform1f(uniformTrueLocation, data);
 			return;
+		}
+		else if (uniformLocation == -1)
+		{
+			std::cout << uniformname << " does not exist in program id: " << ProgramID << std::endl;
 		}
 		glUniform1f(uniformLocation, data);
 	}
