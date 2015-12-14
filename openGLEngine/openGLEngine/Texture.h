@@ -5,13 +5,26 @@ class Texture
 {
 public:
 	Texture();
+	Texture(const char*filename, GLenum textureType)
+	{
+		glGenTextures(1, &this->textureID);
+		loadTexture(filename, textureType);
+	}
 	~Texture();
-
-	void loadTexture(const char* filename);
-	GLuint getTexture()
+	void loadTexture(const char* filename, GLenum textureType);
+	void bindTexture()
+	{
+		glBindTexture(textureType, textureID);
+	}
+	void unbindTexture()
+	{
+		glBindTexture(textureType, 0);
+	}
+	GLuint getTextureId()
 	{
 		return textureID;
-	};
+	}
 private:
 	GLuint textureID;
+	GLenum textureType;
 };

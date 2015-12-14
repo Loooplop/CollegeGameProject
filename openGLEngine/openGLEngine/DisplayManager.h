@@ -10,6 +10,7 @@ public:
 	static bool Init(char* windowName, vec2i windowSize, vec2i openGLVersion);
 	static void resize_callback(GLFWwindow* window, int width, int height)
 	{
+		DisplayManager::updateNeeded = true;
 		glViewport(0, 0, width, height);
 	};
 	static int getKeyStatus(int key)
@@ -20,6 +21,22 @@ public:
 	{
 		glfwSetWindowShouldClose(DisplayManager::window, state);
 	}
+	static vec2f getCursorPosition()
+	{
+		double x, y;
+		glfwGetCursorPos(DisplayManager::window, &x, &y);
+		return vec2f(x, y);
+	}
+	static vec2f getScreenSize()
+	{
+		int x, y;
+		glfwGetWindowSize(DisplayManager::window, &x, &y);
+		return vec2f(x, y);
+	}
+	static void setCursorPosition(vec2f position)
+	{
+		glfwSetCursorPos(DisplayManager::window, position.getX(), position.getY());
+	}
 	static void UnInit();
 	static bool getWindowCloseFlag();
 	static void SwapBuffers();
@@ -28,5 +45,7 @@ public:
 private:
 	DisplayManager();
 	static GLFWwindow *window;
+	static bool updateNeeded;
+	static mat4f perspectiveMatrix;
 };
 

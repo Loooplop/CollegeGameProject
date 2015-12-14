@@ -2,12 +2,12 @@
 #include "WE_Vector.h"
 #include "WE_Matrix.h"
 #include "WE_TransMatrix.h"
-class WE_FP_Camera
+class Camera
 {
 public:
-	WE_FP_Camera();
-	WE_FP_Camera(vec3f origin);
-	~WE_FP_Camera();
+	Camera();
+	Camera(vec3f origin);
+	~Camera();
 
 	void RotateRight(float rotSpeed);
 	void RotateLeft(float rotSpeed);

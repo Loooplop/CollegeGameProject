@@ -20,7 +20,6 @@ public:
 #define Position_Texture 2
 #define Position_Texture_Normal 3
 	static ModelInformation loadModelDatafromOBJFile(const char* filename, int flag);
-	static Texture loadTextureFromBMP(const char*filename);
 	static void loadModelfromOBJFile(const char* filename, int flag, bool indexed,Model *model);
 private:
 	static ModelInformation objLoaderPT(const char*filename);

@@ -12,7 +12,7 @@ public:
 		heightmap.clear();
 		for (int i = 0; i < terrainTextures.size(); i++)
 		{
-			GLuint address = terrainTextures[i].getTexture();
+			GLuint address = terrainTextures[i].getTextureId();
 			glDeleteTextures(1, &address);
 		}
 		terrainTextures.clear();

@@ -33,117 +33,135 @@ public:
 		glUseProgram(0);
 	}
 
-	void UploadUniform_vec2(const std::string uniformname, vec2f data)
+	void uploadUniform_vec2(const std::string uniformname, vec2f data)
 	{
 		GLuint uniformLocation = UniformLocationFromName(uniformname);
-		if (uniformLocation == -2)
+		if (uniformLocation == -1)
+		{
+			std::cout << uniformname.c_str() << " does not exist in program id: " << ProgramID << std::endl;
+		}
+		else if (uniformLocation == -2)
 		{
 			GLuint uniformTrueLocation = glGetUniformLocation(ProgramID, uniformname.c_str());
 			uniformLocations.push_back(std::make_pair(uniformname, uniformTrueLocation));
 			glUniform2f(uniformTrueLocation, data.getX(), data.getY());
 			return;
 		}
-		else if (uniformLocation == -1)
-		{
-			std::cout << uniformname << " does not exist in program id: " << ProgramID << std::endl;
-		}
 		glUniform2f(uniformLocation, data.getX(), data.getY());
 	};
-	void UploadUniform_vec3(const std::string uniformname, vec3f data)
+	void uploadUniform_vec3(const std::string uniformname, vec3f data)
 	{
 		GLuint uniformLocation = UniformLocationFromName(uniformname);
-		if (uniformLocation == -2)
+		if (uniformLocation == -1)
+		{
+			std::cout << uniformname.c_str() << " does not exist in program id: " << ProgramID << std::endl;
+		}
+		else if (uniformLocation == -2)
 		{
 			GLuint uniformTrueLocation = glGetUniformLocation(ProgramID, uniformname.c_str());
 			uniformLocations.push_back(std::make_pair(uniformname, uniformTrueLocation));
 			glUniform3f(uniformTrueLocation, data.getX(), data.getY(), data.getZ());
 			return;
 		}
-		else if (uniformLocation == -1)
-		{
-			std::cout << uniformname << " does not exist in program id: " << ProgramID << std::endl;
-		}
 		glUniform3f(uniformLocation, data.getX(), data.getY(), data.getZ());
 	};
-	void UploadUniform_vec4(const std::string uniformname, vec4f data)
+	void uploadUniform_vec4(const std::string uniformname, vec4f data)
 	{
 		GLuint uniformLocation = UniformLocationFromName(uniformname);
-		if (uniformLocation == -2)
+		if (uniformLocation == -1)
+		{
+			std::cout << uniformname.c_str() << " does not exist in program id: " << ProgramID << std::endl;
+		}
+		else if (uniformLocation == -2)
 		{
 			GLuint uniformTrueLocation = glGetUniformLocation(ProgramID, uniformname.c_str());
 			uniformLocations.push_back(std::make_pair(uniformname, uniformTrueLocation));
 			glUniform4f(uniformTrueLocation, data.getX(), data.getY(), data.getZ(), data.getW());
 			return;
 		}
-		else if (uniformLocation == -1)
-		{
-			std::cout << uniformname << " does not exist in program id: " << ProgramID << std::endl;
-		}
 		glUniform4f(uniformLocation, data.getX(), data.getY(), data.getZ(), data.getW());
 	};
-	void UploadUniform_mat2(const std::string uniformname, mat2f data, bool transpose)
+	void uploadUniform_mat2(const std::string uniformname, mat2f data, bool transpose)
 	{
 		GLuint uniformLocation = UniformLocationFromName(uniformname);
-		if (uniformLocation == -2)
+		if (uniformLocation == -1)
+		{
+			std::cout << uniformname.c_str() << " does not exist in program id: " << ProgramID << std::endl;
+		}
+		else if (uniformLocation == -2)
 		{
 			GLuint uniformTrueLocation = glGetUniformLocation(ProgramID, uniformname.c_str());
 			uniformLocations.push_back(std::make_pair(uniformname, uniformTrueLocation));
 			glUniformMatrix2fv(uniformTrueLocation, 1, transpose, data.getArray());
 			return;
 		}
-		else if (uniformLocation == -1)
-		{
-			std::cout << uniformname << " does not exist in program id: " << ProgramID << std::endl;
-		}
 		glUniformMatrix2fv(uniformLocation, 1, transpose, data.getArray());
 	};
-	void UploadUniform_mat3(const std::string uniformname, mat3f data, bool transpose)
+	void uploadUniform_mat3(const std::string uniformname, mat3f data, bool transpose)
 	{
 		GLuint uniformLocation = UniformLocationFromName(uniformname);
-		if (uniformLocation == -2)
+		if (uniformLocation == -1)
+		{
+			std::cout << uniformname.c_str() << " does not exist in program id: " << ProgramID << std::endl;
+		}
+		else if (uniformLocation == -2)
 		{
 			GLuint uniformTrueLocation = glGetUniformLocation(ProgramID, uniformname.c_str());
 			uniformLocations.push_back(std::make_pair(uniformname, uniformTrueLocation));
 			glUniformMatrix3fv(uniformTrueLocation, 1, transpose, data.getArray());
 			return;
 		}
-		else if (uniformLocation == -1)
-		{
-			std::cout << uniformname << " does not exist in program id: " << ProgramID << std::endl;
-		}
 		glUniformMatrix3fv(uniformLocation, 1, transpose, data.getArray());
 	};
-	void UploadUniform_mat4(const std::string uniformname, mat4f data, bool transpose)
+	void uploadUniform_mat4(const std::string uniformname, mat4f data, bool transpose)
 	{
 		GLuint uniformLocation = UniformLocationFromName(uniformname);
-		if (uniformLocation == -2)
+		if (uniformLocation == -1)
+		{
+			std::cout << uniformname.c_str() << " does not exist in program id: " << ProgramID << std::endl;
+		}
+		else if (uniformLocation == -2)
 		{
 			GLuint uniformTrueLocation = glGetUniformLocation(ProgramID, uniformname.c_str());
 			uniformLocations.push_back(std::make_pair(uniformname, uniformTrueLocation));
 			glUniformMatrix4fv(uniformTrueLocation, 1, transpose, data.getArray());
 			return;
 		}
-		else if (uniformLocation == -1)
-		{
-			std::cout << uniformname << " does not exist in program id: " << ProgramID << std::endl;
-		}
 		glUniformMatrix4fv(uniformLocation, 1, transpose, data.getArray());
 	};
-	void UploadFloat(const std::string uniformname, float data)
+	void uploadFloat(const std::string uniformname, float data)
 	{
 		GLuint uniformLocation = UniformLocationFromName(uniformname);
-		if (uniformLocation == -2)
+
+		if (uniformLocation == -1)
+		{
+			std::cout << uniformname.c_str() << " does not exist in program id: " << ProgramID << std::endl;
+		}
+		else if (uniformLocation == -2)
 		{
 			GLuint uniformTrueLocation = glGetUniformLocation(ProgramID, uniformname.c_str());
 			uniformLocations.push_back(std::make_pair(uniformname, uniformTrueLocation));
 			glUniform1f(uniformTrueLocation, data);
 			return;
 		}
-		else if (uniformLocation == -1)
-		{
-			std::cout << uniformname << " does not exist in program id: " << ProgramID << std::endl;
-		}
 		glUniform1f(uniformLocation, data);
+	}
+	void uploadInt(const std::string uniformname, int data)
+	{
+		GLuint uniformLocation = UniformLocationFromName(uniformname);
+
+		if (uniformLocation == -1)
+		{
+			std::cout << uniformname.c_str() << " does not exist in program id: " << ProgramID << std::endl;
+		}
+		else if (uniformLocation == -2)
+		{
+			GLuint uniformTrueLocation = glGetUniformLocation(ProgramID, uniformname.c_str());
+			uniformLocations.push_back(std::make_pair(uniformname, uniformTrueLocation));
+			glUniform1f(uniformTrueLocation, data);
+			return;
+		}
+		glUniform1i(uniformLocation, data);
 	}
 	void printUniformName()
 	{

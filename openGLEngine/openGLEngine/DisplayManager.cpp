@@ -1,6 +1,8 @@
 #include "DisplayManager.h"
 #include <iostream>
 GLFWwindow *DisplayManager::window = 0;
+bool DisplayManager::updateNeeded = true;
+mat4f DisplayManager::perspectiveMatrix = getScaleMatrix<float>(1,1,1);
 DisplayManager::DisplayManager()
 {
 
@@ -13,9 +15,18 @@ bool DisplayManager::Init(char* windowName, vec2i windowSize, vec2i openGLVersio
 {
 	bool Error = false;
 	int err = glfwInit();
+
+	glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // We want OpenGL 3.3
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
+
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL 
 	window = glfwCreateWindow(windowSize.getX(), windowSize.getY(), windowName, NULL, NULL);
 	glfwSetWindowSizeCallback(DisplayManager::window,DisplayManager::resize_callback);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	if (!window)
 	{
 		std::cout << "Error creating window" << std::endl;
@@ -27,8 +38,6 @@ bool DisplayManager::Init(char* windowName, vec2i windowSize, vec2i openGLVersio
 	glViewport(0, 0, windowSize.getX(), windowSize.getY());
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-
 
 	std::cout << glfwGetWindowAttrib(DisplayManager::window, GLFW_CONTEXT_VERSION_MAJOR) << std::endl;
 	std::cout << glfwGetWindowAttrib(DisplayManager::window, GLFW_CONTEXT_VERSION_MINOR) << std::endl;
@@ -58,5 +67,10 @@ mat4f DisplayManager::getPerspectiveMatrix()
 {
 	int width, height;
 	glfwGetWindowSize(window, &width, &height);
-	return ::getPerspectiveMatrix<float>(45.0f, (float)width / (float)height, 0.1, 1000);
+	if (updateNeeded)
+	{
+		DisplayManager::perspectiveMatrix = ::getPerspectiveMatrix<float>(45.0f, (float)width / (float)height, 0.1, 1000);
+		DisplayManager::updateNeeded = false;
+	}
+	return DisplayManager::perspectiveMatrix;
 }

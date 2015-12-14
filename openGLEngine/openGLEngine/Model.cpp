@@ -3,7 +3,7 @@
 #include <string>
 
 #include "ResourceLoader.h"
-unsigned int Model::curretModelIndex = 0;
+unsigned int Model::curretModelIndex = 1;
 Model::Model()
 {
 	VAO  = -1;
@@ -14,7 +14,15 @@ Model::Model()
 }
 Model::Model(std::string filename, int objFileStructureFlag, bool isIndexed)
 {
-	ResourceLoader::loadModelfromOBJFile(filename.c_str(), objFileStructureFlag, isIndexed, this);
+	VAO = -1;
+	VBOs = vector<GLuint>();
+	numOfVertices = 0;
+	glGenVertexArrays(1, &this->VAO);
+	modelID = Model::curretModelIndex++;
+	ModelInformation modelInfo = ResourceLoader::loadModelDatafromOBJFile(filename.c_str(), objFileStructureFlag);
+	uploadDataToAttribute(0, 3, modelInfo.position);
+	uploadDataToAttribute(1, 3, modelInfo.normal);
+	uploadDataToAttribute(2, 2, modelInfo.textureCoordinates);
 };
 Model::~Model()
 {
@@ -52,9 +60,10 @@ void Model::Render()
 {
 	glBindVertexArray(this->VAO);
 
-	for (int i = 0; i < attributes.size();i++)
-	glEnableVertexAttribArray(attributes[i]);
-
+	for (int i = 0; i < attributes.size(); i++)
+	{
+		glEnableVertexAttribArray(attributes[i]);
+	}
 	if (isIndexed)
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 

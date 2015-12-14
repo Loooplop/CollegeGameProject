@@ -381,9 +381,3 @@ ModelInformation ResourceLoader::objLoaderPTN_indexed(const char*filename)
 	tempindexed.NumOfVertices = indexbuffer.size();
 	return tempindexed;
 };
-Texture ResourceLoader::loadTextureFromBMP(const char*filename)
-{
-	Texture temp;
-	temp.loadTexture(filename);
-	return temp;
-}

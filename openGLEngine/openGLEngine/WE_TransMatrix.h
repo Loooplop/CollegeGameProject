@@ -1,6 +1,7 @@
 #pragma once
 #include "WE_Matrix.h"
 #include <math.h>
+#include <cmath>
 template<typename type>
 mat4<type> getTranslationMatrix(double x, double y, double z)
 {
@@ -87,7 +88,15 @@ mat4<type> getPerspectiveMatrix(double FOV, double aspectRatio, double znear, do
 {
 	double coty = 1.0 / tan(FOV * (3.14159265359 / 180.0));
 	return mat4<type>(coty / aspectRatio, 0, 0, 0,
-		              0, coty, 0, 0,
-		              0, 0, (znear + zfar) / (znear - zfar), -1,
-		              0, 0, (2 * znear * zfar) / (znear - zfar), 0);
+					  0, coty, 0, 0,
+			          0, 0, (znear + zfar) / (znear - zfar), -1,
+			          0, 0, (2 * znear * zfar) / (znear - zfar), 0);
+	/*double top = znear*tan((3.14f / 180)*(FOV / 2.0f));
+	double bottom = -top;
+	double right = top*aspectRatio;
+	double left = -right;
+	return mat4<type>((2 * znear) / right - left, 0, ((right + left) / (right - left)), 0,
+		0, (2 * znear) / (top - bottom), (top + bottom) / (top - bottom), 0,
+		0, 0, -((zfar + znear) / (zfar - znear)), -((2 * zfar*znear) / (zfar - znear)),
+		0, 0, -1, 0);*/
 }

@@ -1,7 +1,5 @@
-#version 330
+#version 330 core
 out vec4 finalColor;
-
-uniform float time;
 
 void main()
 {
