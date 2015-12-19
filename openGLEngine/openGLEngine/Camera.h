@@ -24,6 +24,7 @@ private:
 	mat4f viewMatrix;
 	bool updateNeeded;
 	vec3f origin;
+	vec3f direction;
 	float rotAngleZ;
 };
 

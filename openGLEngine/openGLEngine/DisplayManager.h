@@ -25,6 +25,7 @@ public:
 	{
 		double x, y;
 		glfwGetCursorPos(DisplayManager::window, &x, &y);
+		std::cout << x << std::endl;
 		return vec2f(x, y);
 	}
 	static vec2f getScreenSize()

@@ -18,18 +18,17 @@ Camera::Camera(vec3f origin)
 		0, 1, 0, 0,
 		0, 0, 1, 0,
 		0, 0, 0, 1);
+	direction = vec3f(0, 0, 1);
 	updateNeeded = true;
 }
 void Camera::MoveRight(float speed)
 {
-	vec3f dir = vec3f(0, 1, 0).CrossProduct(vec3f(cos(Radians(rotAngleZ))*speed, 0, -(Radians(rotAngleZ)))*speed);
-	origin = origin - dir;
+	origin = origin + (direction*speed).CrossProduct(vec3f(0,1,0));
 	updateNeeded = true;
 };
 void Camera::MoveLeft(float speed)
 {
-	vec3f dir = vec3f(0, 1, 0).CrossProduct(vec3f(cos(Radians(rotAngleZ))*speed, 0, -sin(Radians(rotAngleZ)))*speed);
-	origin = origin + dir;
+	origin = origin + (direction*-speed).CrossProduct(vec3f(0, 1, 0));
 	updateNeeded = true;
 };
 Camera::~Camera()
@@ -39,28 +38,32 @@ Camera::~Camera()
 void Camera::RotateRight(float rotSpeed)
 {
 	rotAngleZ -= rotSpeed;
+	direction = vec3f(cos(Radians(rotAngleZ)), 0, -sin(Radians(rotAngleZ)));
 	updateNeeded = true;
 };
 void Camera::RotateLeft(float rotSpeed)
 {
 	rotAngleZ += rotSpeed;
+	direction = vec3f(cos(Radians(rotAngleZ)), 0, -sin(Radians(rotAngleZ)));
 	updateNeeded = true;
 };
 void Camera::MoveForward(float speed)
 {
-	origin = origin + vec3f(cos(Radians(rotAngleZ))*speed, 0, -sin(Radians(rotAngleZ))*speed);
+	origin = origin + direction*speed;
 	updateNeeded = true;
 };
 void Camera::MoveBackward(float speed)
 {
-	MoveForward(-speed);
+	
+	origin = origin + direction*-speed;
 	updateNeeded = true;
 };
 mat4f Camera::getViewMatrix()
 {
 	if (updateNeeded)
 	{
-		viewMatrix = ::getViewMatrix<float>(origin, origin + vec3f(sin(Radians(rotAngleZ)), 0, cos(Radians(rotAngleZ))), vec3f(0, 1, 0));
+		direction= vec3f(cos(Radians(rotAngleZ)), 0.0f, sin(Radians(-rotAngleZ)));
+		viewMatrix = ::getViewMatrix<float>(origin, origin + direction, vec3f(0, 1, 0));
 		updateNeeded = false;
 	}
 	return viewMatrix;

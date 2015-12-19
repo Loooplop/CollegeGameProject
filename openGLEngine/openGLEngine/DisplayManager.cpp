@@ -26,6 +26,7 @@ bool DisplayManager::Init(char* windowName, vec2i windowSize, vec2i openGLVersio
 
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL 
 	window = glfwCreateWindow(windowSize.getX(), windowSize.getY(), windowName, NULL, NULL);
+	glfwSetInputMode(DisplayManager::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetWindowSizeCallback(DisplayManager::window,DisplayManager::resize_callback);
 	if (!window)
 	{
