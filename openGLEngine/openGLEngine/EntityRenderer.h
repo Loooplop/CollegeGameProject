@@ -15,7 +15,7 @@ public:
 	{
 
 	};
-	void render(Camera camera,Light light);
+	void render(Camera &camera,Light light);
 	void unprepare();
 private:
 	std::vector<Entity*> entities;

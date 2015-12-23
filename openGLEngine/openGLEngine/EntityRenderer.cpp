@@ -29,7 +29,7 @@ void EntityRenderer::process(void * renderableObject)
 	entities.push_back((Entity*)renderableObject);
 }
 
-void EntityRenderer::render(Camera camera,Light light)
+void EntityRenderer::render(Camera &camera,Light light)
 {
 	rendererProgram->uploadUniform_mat4("mat4_perspectiveMatrix", DisplayManager::getPerspectiveMatrix(), false);
 

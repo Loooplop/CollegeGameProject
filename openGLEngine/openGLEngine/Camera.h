@@ -11,6 +11,7 @@ public:
 
 	void RotateRight(float rotSpeed);
 	void RotateLeft(float rotSpeed);
+	void RotateUp(float speed);
 
 	void MoveRight(float speed);
 	void MoveLeft(float speed);
@@ -20,11 +21,13 @@ public:
 	mat4f getViewMatrix();
 
 	vec3f getOriginPosition(){ return origin; };
+	vec3f getDirectionVector() { return direction; };
 private:
 	mat4f viewMatrix;
 	bool updateNeeded;
 	vec3f origin;
 	vec3f direction;
 	float rotAngleZ;
+	float rotAngleY;
 };
 
