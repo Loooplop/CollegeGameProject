@@ -24,5 +24,8 @@ void main()
 	float specularAngle=dot(reflectedVector,toCameraVector);
 	float distance=length(light_position-pass_pos.xyz);
 	float att=(light_attenuation.x+distance*light_attenuation.y+distance*distance*light_attenuation.z);
+
     finalColor=texture(sampler,pass_tex)*vec4((diffuseLight+vec3(1,1,1)*pow(max(0.0,specularAngle),64))/att,1);
+	//finalColor=texture(sampler,pass_tex);
+	//finalColor=vec4(pass_norm,1);
 }

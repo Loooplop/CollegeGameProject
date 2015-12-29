@@ -30,7 +30,12 @@ public:
 	{
 		return modelID;
 	}
+	std::string getModelName()
+	{
+		return modelName;
+	}
 private:
+	std::string modelName;
 	GLuint VAO;
 	GLuint EBO;
 	bool isIndexed;

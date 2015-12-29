@@ -11,9 +11,11 @@ Model::Model()
 	numOfVertices = 0;
 	glGenVertexArrays(1, &this->VAO);
 	modelID = Model::curretModelIndex++;
+	modelName = "null";
 }
 Model::Model(std::string filename, int objFileStructureFlag, bool isIndexed)
 {
+	modelName = filename;
 	VAO = -1;
 	VBOs = vector<GLuint>();
 	numOfVertices = 0;

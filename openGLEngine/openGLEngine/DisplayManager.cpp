@@ -16,8 +16,6 @@ bool DisplayManager::Init(char* windowName, vec2i windowSize, vec2i openGLVersio
 	bool Error = false;
 	int err = glfwInit();
 
-	glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
-
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // We want OpenGL 3.3
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -39,7 +37,6 @@ bool DisplayManager::Init(char* windowName, vec2i windowSize, vec2i openGLVersio
 	glViewport(0, 0, windowSize.getX(), windowSize.getY());
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-
 	std::cout << glfwGetWindowAttrib(DisplayManager::window, GLFW_CONTEXT_VERSION_MAJOR) << std::endl;
 	std::cout << glfwGetWindowAttrib(DisplayManager::window, GLFW_CONTEXT_VERSION_MINOR) << std::endl;
 	return Error;
@@ -70,7 +67,7 @@ mat4f DisplayManager::getPerspectiveMatrix()
 	glfwGetWindowSize(window, &width, &height);
 	if (updateNeeded)
 	{
-		DisplayManager::perspectiveMatrix = ::getPerspectiveMatrix<float>(45.0f, (float)width / (float)height, 0.1, 1000);
+		DisplayManager::perspectiveMatrix = ::getPerspectiveMatrix<float>(45.0f, (float)width / (float)height, 1, 1000);
 		DisplayManager::updateNeeded = false;
 	}
 	return DisplayManager::perspectiveMatrix;

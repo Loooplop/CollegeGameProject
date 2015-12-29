@@ -4,7 +4,7 @@
 
 EntityRenderer::EntityRenderer()
 {
-	entities = std::vector<Entity*>();
+	entityMap = std::map<std::string, std::vector<Entity*>>();
 	rendererProgram = new Program("entityVertex.vs", "entityFragment.fs");
 	rendererProgram->start();
 	rendererProgram->uploadUniform_mat4("mat4_perspectiveMatrix", DisplayManager::getPerspectiveMatrix(), false);
@@ -22,17 +22,23 @@ EntityRenderer::~EntityRenderer()
 void EntityRenderer::prepare()
 {
 	rendererProgram->start();
+	rendererProgram->uploadUniform_mat4("mat4_perspectiveMatrix", DisplayManager::getPerspectiveMatrix(), false);
 }
 
 void EntityRenderer::process(void * renderableObject)
 {
-	entities.push_back((Entity*)renderableObject);
+	Entity *e = (Entity*)renderableObject;
+	std::string modelName=e->getModel()->getModelName();
+
+	if (entityMap.find(modelName)==entityMap.end())
+	{
+		entityMap[modelName] = std::vector<Entity*>();
+	}
+	entityMap[modelName].push_back(e);
 }
 
 void EntityRenderer::render(Camera &camera,Light light)
 {
-	rendererProgram->uploadUniform_mat4("mat4_perspectiveMatrix", DisplayManager::getPerspectiveMatrix(), false);
-
 	rendererProgram->uploadUniform_mat4("mat4_viewMatrix", camera.getViewMatrix(), false);
 	rendererProgram->uploadUniform_vec3("vec3_cameraOrigin", camera.getOriginPosition());
 
@@ -40,20 +46,21 @@ void EntityRenderer::render(Camera &camera,Light light)
 	rendererProgram->uploadUniform_vec3("light_color", light.getLightColor());
 	rendererProgram->uploadUniform_vec3("light_attenuation", light.getLightAttenuation());
 	
-	for (int i = 0; i < entities.size(); i++)
+	for (auto it = entityMap.begin(); it != entityMap.end(); it++)
 	{
-		entities[i]->prepareEntity();
-		
-		rendererProgram->uploadUniform_mat4("mat4_modelMatrix", entities[i]->getModelMatrix(), false);
-		entities[i]->render();
-		
-		entities[i]->unprepareEntity();
-	}
-	
+		it->second[0]->getModel()->prepareModel();
+		std::vector<Entity*> list = it->second;
+		for (int i = 0; i < list.size(); i++)
+		{
+			list[i]->getTexture()->bindTexture();
+			rendererProgram->uploadUniform_mat4("mat4_modelMatrix",list[i]->getModelMatrix(),false);
+			list[i]->getModel()->renderModel();
+			list[i]->getTexture()->unbindTexture();
+		}
+		it->second[0]->getModel()->unprepareModel();
+	};
 
-
-
-	entities.clear();
+	entityMap.clear();
 }
 
 void EntityRenderer::unprepare()
