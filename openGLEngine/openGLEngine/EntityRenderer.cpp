@@ -45,22 +45,44 @@ void EntityRenderer::render(Camera &camera,Light light)
 	rendererProgram->uploadUniform_vec3("light_position", light.getLightPosition());
 	rendererProgram->uploadUniform_vec3("light_color", light.getLightColor());
 	rendererProgram->uploadUniform_vec3("light_attenuation", light.getLightAttenuation());
-	
+	GLuint currentTexture = -1;
 	for (auto it = entityMap.begin(); it != entityMap.end(); it++)
 	{
 		it->second[0]->getModel()->prepareModel();
+		it->second[0]->getTexture()->bindTexture();
 		std::vector<Entity*> list = it->second;
 		for (int i = 0; i < list.size(); i++)
 		{
-			list[i]->getTexture()->bindTexture();
 			rendererProgram->uploadUniform_mat4("mat4_modelMatrix",list[i]->getModelMatrix(),false);
 			list[i]->getModel()->renderModel();
-			list[i]->getTexture()->unbindTexture();
 		}
+		it->second[0]->getTexture()->unbindTexture();
 		it->second[0]->getModel()->unprepareModel();
 	};
-
 	entityMap.clear();
+}
+
+void EntityRenderer::renderScene(Camera & camera, Light light)
+{
+	rendererProgram->uploadUniform_mat4("mat4_viewMatrix", camera.getViewMatrix(), false);
+	rendererProgram->uploadUniform_vec3("vec3_cameraOrigin", camera.getOriginPosition());
+
+	rendererProgram->uploadUniform_vec3("light_position", light.getLightPosition());
+	rendererProgram->uploadUniform_vec3("light_color", light.getLightColor());
+	rendererProgram->uploadUniform_vec3("light_attenuation", light.getLightAttenuation());
+	for (auto it = entityMap.begin(); it != entityMap.end(); it++)
+	{
+		it->second[0]->getModel()->prepareModel();
+		it->second[0]->getTexture()->bindTexture();
+		std::vector<Entity*> list = it->second;
+		for (int i = 0; i < list.size(); i++)
+		{
+			rendererProgram->uploadUniform_mat4("mat4_modelMatrix", list[i]->getModelMatrix(), false);
+			list[i]->getModel()->renderModel();
+		}
+		it->second[0]->getTexture()->unbindTexture();
+		it->second[0]->getModel()->unprepareModel();
+	};
 }
 
 void EntityRenderer::unprepare()

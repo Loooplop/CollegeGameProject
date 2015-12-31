@@ -17,6 +17,7 @@ public:
 
 	};
 	void render(Camera &camera,Light light);
+	void renderScene(Camera &camera, Light light);
 	void unprepare();
 private:
 	std::map<std::string, std::vector<Entity*>> entityMap;

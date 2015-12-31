@@ -20,6 +20,7 @@ public:
 	static void setWindowCloseFlag(bool state)
 	{
 		glfwSetWindowShouldClose(DisplayManager::window, state);
+
 	}
 	static vec2f getCursorPosition()
 	{

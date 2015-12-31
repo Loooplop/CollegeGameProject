@@ -63,12 +63,13 @@ void DisplayManager::SwapBuffers()
 };
 mat4f DisplayManager::getPerspectiveMatrix()
 {
+	
 	int width, height;
 	glfwGetWindowSize(window, &width, &height);
 	if (updateNeeded)
 	{
 		DisplayManager::perspectiveMatrix = ::getPerspectiveMatrix<float>(45.0f, (float)width / (float)height, 1, 1000);
 		DisplayManager::updateNeeded = false;
-	}
+	};
 	return DisplayManager::perspectiveMatrix;
 }
