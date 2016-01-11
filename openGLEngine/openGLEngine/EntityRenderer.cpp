@@ -45,7 +45,6 @@ void EntityRenderer::render(Camera &camera,Light light)
 	rendererProgram->uploadUniform_vec3("light_position", light.getLightPosition());
 	rendererProgram->uploadUniform_vec3("light_color", light.getLightColor());
 	rendererProgram->uploadUniform_vec3("light_attenuation", light.getLightAttenuation());
-	GLuint currentTexture = -1;
 	for (auto it = entityMap.begin(); it != entityMap.end(); it++)
 	{
 		it->second[0]->getModel()->prepareModel();

@@ -50,13 +50,13 @@ void Camera::RotateLeft(float rotSpeed)
 void Camera::RotateUp(float speed)
 {
 	rotAngleY += speed;
-	if (rotAngleY < -180.0f)
+	if (rotAngleY <= -360.0f)
 	{
-		rotAngleY = -180.0f;
+		rotAngleY = -360.0f;
 	}
-	else if (rotAngleY>180.0f)
+	else if (rotAngleY>=360.0f)
 	{
-		rotAngleY = 180.0f;
+		rotAngleY = 360.0f;
 	}
 	updateNeeded = true;
 };
