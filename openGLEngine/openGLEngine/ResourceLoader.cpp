@@ -1,6 +1,7 @@
 #include "ResourceLoader.h"
 #include <vector>
-
+map<string, Model*>ResourceLoader::models = map<string, Model*>();
+map<string, Texture*> ResourceLoader::textures = map<string, Texture*>();
 ResourceLoader::ResourceLoader()
 {
 
@@ -59,6 +60,60 @@ void ResourceLoader::loadModelfromOBJFile(const char* filename, int flag,bool in
 	{
 		model->uploadDataToElement(temp.indexbuffer);
 	}
+}
+void ResourceLoader::loadTexture(string filename, GLenum textureType)
+{
+	if (textures.find(filename) == textures.end())
+	{
+		Texture*t = new Texture((filename + ".bmp").c_str(), textureType);
+		textures[filename] = t;
+	}
+}
+Texture * ResourceLoader::getTexture(string filename)
+{
+	auto it = textures.find(filename);
+	if (it != textures.end())
+	{
+		return textures[filename];
+	}
+	return textures["notFound"];
+}
+void ResourceLoader::InitResourceLoader()
+{
+	textures = map<string, Texture*>();
+	models = map<string, Model*>();
+	textures["notFound"] = new Texture("notFound.bmp", GL_TEXTURE_2D);
+	models["notFound"] = new Model("notFound.obj", Position_Texture_Normal, false);
+}
+void ResourceLoader::CleanUpResourceLoader()
+{
+	for (map<string, Model*>::iterator it = models.begin(); it != models.end(); it++)
+	{
+		delete it->second;
+	}
+	models.clear();
+	for (map<string, Texture*>::iterator it = textures.begin(); it != textures.end(); it++)
+	{
+		delete it->second;
+	}
+	textures.clear();
+}
+void ResourceLoader::loadModel(string filename, bool indexed)
+{
+	if (models.find(filename) == models.end())
+	{
+		Model *m = new Model(filename + ".obj", Position_Texture_Normal, indexed);
+		models[filename] = m;
+	};
+}
+Model * ResourceLoader::getModel(string filename)
+{
+	auto it = models.find(filename);
+	if (it != models.end())
+	{
+		return models[filename];
+	}
+	return models["notFound"];
 }
 ModelInformation ResourceLoader::objLoaderPT(const char*filename)
 {

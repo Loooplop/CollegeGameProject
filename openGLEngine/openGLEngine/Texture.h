@@ -24,6 +24,10 @@ public:
 	{
 		return textureID;
 	}
+	GLenum getTextureType()
+	{
+		return textureType;
+	}
 private:
 	GLuint textureID;
 	GLenum textureType;

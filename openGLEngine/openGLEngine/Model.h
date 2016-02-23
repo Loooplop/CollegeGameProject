@@ -30,6 +30,10 @@ public:
 	{
 		return modelID;
 	}
+	unsigned int getVerticesCount()
+	{
+		return numOfVertices;
+	}
 	std::string getModelName()
 	{
 		return modelName;

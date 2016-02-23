@@ -14,7 +14,7 @@ out vec4 pass_pos;
 void main()
 {
 	pass_tex=attrib_tex;
-	pass_norm=attrib_norm;
+	pass_norm=mat3(mat4_modelMatrix)*attrib_norm;
 	gl_Position=mat4_perspectiveMatrix*mat4_viewMatrix*mat4_modelMatrix*vec4(attrib_pos,1);
 	pass_pos=mat4_modelMatrix*vec4(attrib_pos,1);
 }

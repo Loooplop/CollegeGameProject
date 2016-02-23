@@ -13,6 +13,14 @@ public:
 	void render();
 	void unprepare();
 	Model* getModel();
+	void setModel(Model* m)
+	{
+		model = m;
+	}
+	void setTexture(Texture *t)
+	{
+		texture = t;
+	}
 	Texture* getTexture();
 private:
 	Model *model;

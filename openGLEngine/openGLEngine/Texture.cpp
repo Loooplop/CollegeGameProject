@@ -11,6 +11,7 @@ Texture::Texture()
 
 Texture::~Texture()
 {
+	std::cout << "Destroying Texture" << std::endl;
 	glDeleteTextures(1, &this->textureID);
 }
 

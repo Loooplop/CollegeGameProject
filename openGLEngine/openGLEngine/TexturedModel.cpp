@@ -20,8 +20,7 @@ TexturedModel::TexturedModel(Model * model, Texture * modelTexture)
 
 TexturedModel::~TexturedModel()
 {
-	delete model;
-	delete texture;
+	
 }
 
 void TexturedModel::prepare()

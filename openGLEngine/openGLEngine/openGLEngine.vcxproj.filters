@@ -67,6 +67,7 @@
     <ClCompile Include="Light.cpp">
       <Filter>Lights</Filter>
     </ClCompile>
+    <ClCompile Include="TerrainRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">
@@ -120,6 +121,7 @@
     <ClInclude Include="Light.h">
       <Filter>Lights</Filter>
     </ClInclude>
+    <ClInclude Include="TerrainRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="entityFragment.fs">

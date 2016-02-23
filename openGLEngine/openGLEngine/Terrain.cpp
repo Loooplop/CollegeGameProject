@@ -1,66 +1,90 @@
 #include "Terrain.h"
-
-std::vector<float> getHeights(int dimensions, int maxHeight)
+#define addVectorDataToVector(x,y) y.push_back(x.getX());y.push_back(x.getY());y.push_back(x.getZ());
+#define addVectorDataToVectorTex(x,y) y.push_back(x.getX());y.push_back(x.getY());
+Terrain::Terrain(std::string terrainTextureFilename)
 {
-	std::vector<float> temp;
-	for (int z = 0; z < dimensions + 1; z++)
+	terrain = new TexturedModel();
+	terrain->setTexture(new Texture(terrainTextureFilename.c_str(), GL_TEXTURE_2D));
+	Model* terrainModel = new Model();
+	heights = new float*[AmountOfVerticesPerLine+1];
+	for (int i = 0; i < AmountOfVerticesPerLine+1; i++)
 	{
-		for (int x = 0; x < dimensions + 1; x++)
+		heights[i] = new float[AmountOfVerticesPerLine+1];
+	}
+	std::vector<float> pos, norm, tex;
+	float distancebetweenpoint = TerrainSize/AmountOfVerticesPerLine;
+	float textureCoord = 1.0f / AmountOfVerticesPerLine;
+	NoiseGenerator gen(rand());
+	for (int y = 0; y < AmountOfVerticesPerLine+1; y++)
+	{
+		for (int x = 0; x < AmountOfVerticesPerLine+1; x++)
 		{
-			temp.push_back(((rand() % 32768) / 32768.0)*(rand() % maxHeight));
+			heights[x][y] = 0;
 		}
 	}
-	return temp;
-} 
-void addPoint(std::vector<float> &vec, vec3f point)
-{
-	vec.push_back(point.getX()); vec.push_back(point.getY()); vec.push_back(point.getZ());
-}
-void addQuad(std::vector<float> &vec, vec3f tl, vec3f tr, vec3f bl, vec3f br)
-{
-	addPoint(vec, tr);
-	addPoint(vec, tl);
-	addPoint(vec, bl);
-
-	addPoint(vec, tr);
-	addPoint(vec, bl);
-	addPoint(vec, br);
-}
-#define TwoD2OneD(x,y,s) (y*s)+x 
-Terrain::Terrain(int dimensions, int cellnum, int maxHeight, vec3f origin, int flag)
-{
-	std::vector<float> position;
-	std::vector<float> normal;
-
-	float cellSize = (float)dimensions / (float)cellnum;
-	heightmap = getHeights(cellnum, maxHeight);
-
-	for (int z = 0; z < cellnum; z++)
+	
+	for (int z = 0; z < AmountOfVerticesPerLine; z++)
 	{
-		for (int x = 0; x < cellnum; x++)
+		for (int x = 0; x < AmountOfVerticesPerLine; x++)
 		{
-			vec3f tl(x*cellSize, heightmap[z*cellnum + x], z*cellSize); vec3f tr((x + 1)*cellSize, heightmap[z*cellnum + x + 1], z*cellSize);
-			vec3f bl(x*cellSize, heightmap[(z+1)*cellnum + x], (z+1)*cellSize); vec3f br((x + 1)*cellSize, heightmap[(z+1)*cellnum + x + 1], (z+1)*cellSize);
+			vec3f topLeft(x*distancebetweenpoint, heights[x][z], z*distancebetweenpoint);
+			vec3f topRight((x + 1)*distancebetweenpoint, heights[x + 1][z], z*distancebetweenpoint);
 
-			addQuad(position, tl + origin, tr + origin, bl + origin, br + origin);
+			vec3f bottomLeft(x*distancebetweenpoint, heights[x][z+1], (z+1)*distancebetweenpoint);
+			vec3f bottomRight((x + 1)*distancebetweenpoint, heights[x + 1][z+1], (z+1)*distancebetweenpoint);
+			std::cout << topLeft << topRight << bottomLeft << bottomRight << std::endl;
+			
+			//Position
+			addVectorDataToVector(bottomLeft, pos);
+			addVectorDataToVector(topLeft, pos);
+			addVectorDataToVector(topRight, pos);
 
-			vec3f n1 = tl - tr;
-			vec3f n2 = bl - tr;
-			vec3f n = n1.CrossProduct(n2);
-			n = n.getNormal();
-			addPoint(normal, n); addPoint(normal, n); addPoint(normal, n);
+			addVectorDataToVector(bottomLeft, pos);
+			addVectorDataToVector(topRight, pos);
+			addVectorDataToVector(bottomRight, pos);
+			//Normal
+			vec3f U = topLeft - bottomLeft;
+			vec3f V = topRight - topLeft;
+			U = U.getNormal();
+			V = V.getNormal();
+			vec3f triangleNormal = U.CrossProduct(V);
+			addVectorDataToVector(triangleNormal, norm); addVectorDataToVector(triangleNormal, norm); addVectorDataToVector(triangleNormal, norm);
 
-			n1 = bl - tr;
-			n2 = br - tr;
-			n = n1.CrossProduct(n2);
-			n = n.getNormal();
-			addPoint(normal, n); addPoint(normal, n); addPoint(normal, n);
+
+			U = topRight - bottomLeft;
+			V = bottomRight - topRight;
+			U = U.getNormal();
+			V = V.getNormal();
+			triangleNormal = U.CrossProduct(V);
+			addVectorDataToVector(triangleNormal, norm); addVectorDataToVector(triangleNormal, norm); addVectorDataToVector(triangleNormal, norm);
+			//Texture
+			vec2f texTopLeft(x*textureCoord, z*textureCoord);
+			vec2f texTopRight((x+1)*textureCoord, z*textureCoord);
+			vec2f texBottomLeft(x*textureCoord, (z+1)*textureCoord);
+			vec2f texBottomRight((x+1)*textureCoord, (z+1)*textureCoord);
+
+			addVectorDataToVectorTex(bottomLeft, tex);
+			addVectorDataToVectorTex(topLeft, tex);
+			addVectorDataToVectorTex(topRight, tex);
+
+			addVectorDataToVectorTex(bottomLeft, tex);
+			addVectorDataToVectorTex(topRight, tex);
+			addVectorDataToVectorTex(bottomRight, tex);
 		}
 	}
-//	terrainModel.uploadDataToAttribute(0, &position[0], position.size()*sizeof(float), 3, position.size() / 3);
-//	terrainModel.uploadDataToAttribute(1, &normal[0], normal.size()*sizeof(float), 3, position.size() / 3);
+	terrainModel->uploadDataToAttribute(0, 3, pos);
+	terrainModel->uploadDataToAttribute(1, 3, norm);
+	terrainModel->uploadDataToAttribute(2, 2, tex);
+	terrain->setModel(terrainModel);
 }
-void Terrain::Render()
+
+Terrain::~Terrain()
 {
-	terrainModel.Render();
-};
+	delete terrain;
+
+	for (int i = 0; i < AmountOfVerticesPerLine+1; i++)
+	{
+		delete heights[i];
+	}
+	delete heights;
+}

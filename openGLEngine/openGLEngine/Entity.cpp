@@ -41,8 +41,6 @@ Entity::Entity(Model * model, Texture * tex, vec3f initialPosition, vec3f initia
 Entity::~Entity()
 {
 	std::cout << "destroying Entity" << std::endl;
-	if(model)
-	delete model;
 }
 
 mat4f Entity::getModelMatrix()

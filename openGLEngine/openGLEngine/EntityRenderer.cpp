@@ -48,14 +48,16 @@ void EntityRenderer::render(Camera &camera,Light light)
 	for (auto it = entityMap.begin(); it != entityMap.end(); it++)
 	{
 		it->second[0]->getModel()->prepareModel();
-		it->second[0]->getTexture()->bindTexture();
+		
 		std::vector<Entity*> list = it->second;
 		for (int i = 0; i < list.size(); i++)
 		{
 			rendererProgram->uploadUniform_mat4("mat4_modelMatrix",list[i]->getModelMatrix(),false);
+			list[i]->getTexture()->bindTexture();
 			list[i]->getModel()->renderModel();
+			list[i]->getTexture()->unbindTexture();
 		}
-		it->second[0]->getTexture()->unbindTexture();
+		
 		it->second[0]->getModel()->unprepareModel();
 	};
 	entityMap.clear();

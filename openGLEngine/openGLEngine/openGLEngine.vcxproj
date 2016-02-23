@@ -147,6 +147,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceLoader.cpp" />
     <ClCompile Include="Terrain.cpp" />
+    <ClCompile Include="TerrainRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TexturedModel.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceLoader.h" />
     <ClInclude Include="Terrain.h" />
+    <ClInclude Include="TerrainRenderer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TexturedModel.h" />
     <ClInclude Include="Camera.h" />
