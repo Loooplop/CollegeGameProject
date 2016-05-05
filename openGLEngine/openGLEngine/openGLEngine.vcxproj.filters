@@ -25,6 +25,9 @@
     <Filter Include="Lights">
       <UniqueIdentifier>{0b822ee2-c889-4e02-8078-596916948055}</UniqueIdentifier>
     </Filter>
+    <Filter Include="OpenGL Elements">
+      <UniqueIdentifier>{8c8e8ad9-19b4-411f-8a34-f6b4ec40ac4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DisplayManager.cpp">
@@ -68,6 +71,9 @@
       <Filter>Lights</Filter>
     </ClCompile>
     <ClCompile Include="TerrainRenderer.cpp" />
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>OpenGL Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">
@@ -122,6 +128,9 @@
       <Filter>Lights</Filter>
     </ClInclude>
     <ClInclude Include="TerrainRenderer.h" />
+    <ClInclude Include="FrameBuffer.h">
+      <Filter>OpenGL Elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="entityFragment.fs">

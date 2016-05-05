@@ -10,6 +10,11 @@ public:
 		glGenTextures(1, &this->textureID);
 		loadTexture(filename, textureType);
 	}
+	Texture(GLuint textureID, GLenum textureType)
+	{
+		this->textureID = textureID;
+		this->textureType = textureType;
+	}
 	~Texture();
 	void loadTexture(const char* filename, GLenum textureType);
 	void bindTexture()

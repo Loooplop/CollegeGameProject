@@ -14,6 +14,7 @@ int main()
 {
 	DisplayManager::Init("Test", vec2i(800, 600), vec2i(3, 3));
 	ResourceLoader::InitResourceLoader();
+
 	ResourceLoader::loadModel("floor", false);
 	ResourceLoader::loadModel("unit2", false);
 	ResourceLoader::loadTexture("floortex", GL_TEXTURE_2D);

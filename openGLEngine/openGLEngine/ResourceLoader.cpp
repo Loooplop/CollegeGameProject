@@ -98,6 +98,36 @@ void ResourceLoader::CleanUpResourceLoader()
 	}
 	textures.clear();
 }
+inline bool fileExists(std::string filename)
+{
+	std::ifstream f(filename);
+	return f.good();
+}
+void ResourceLoader::loadResourcesFromFile(std::string filename)
+{
+	std::ifstream file(filename);
+	std::string line;
+
+	while (std::getline(file, line))
+	{
+		if (line[0] == 'm')
+		{
+			if (fileExists(line.substr(1)))
+			{
+				loadModel(line.substr(1), false);
+			}
+
+		}
+		else if(line[0] == 't')
+		{
+			if (fileExists(line.substr(1)))
+			{
+				loadTexture(line.substr(1), GL_TEXTURE_2D);
+			}
+		}
+	}
+	file.close();
+}
 void ResourceLoader::loadModel(string filename, bool indexed)
 {
 	if (models.find(filename) == models.end())

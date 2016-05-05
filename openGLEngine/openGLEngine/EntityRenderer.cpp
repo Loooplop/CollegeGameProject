@@ -25,7 +25,7 @@ void EntityRenderer::prepare()
 	rendererProgram->uploadUniform_mat4("mat4_perspectiveMatrix", DisplayManager::getPerspectiveMatrix(), false);
 }
 
-void EntityRenderer::process(void * renderableObject)
+void EntityRenderer::process(void  *renderableObject)
 {
 	Entity *e = (Entity*)renderableObject;
 	std::string modelName=e->getModel()->getModelName();

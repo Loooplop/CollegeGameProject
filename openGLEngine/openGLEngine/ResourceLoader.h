@@ -34,6 +34,7 @@ public:
 	//Resource Loader Management
 	static void InitResourceLoader();
 	static void CleanUpResourceLoader();
+	static void loadResourcesFromFile(std::string filename);
 private:
 	static ModelInformation objLoaderPT(const char*filename);
 	static ModelInformation objLoaderPN(const char*filename);
