@@ -80,6 +80,7 @@
     <ClCompile Include="AnimationFrame.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
+    <ClCompile Include="ImageRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">
@@ -143,6 +144,7 @@
     <ClInclude Include="AnimationFrame.h">
       <Filter>Animation</Filter>
     </ClInclude>
+    <ClInclude Include="ImageRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="entityFragment.fs">
@@ -163,5 +165,7 @@
     <None Include="vertex.vs">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="ImageRenderer.vs" />
+    <None Include="ImageRenderer.fs" />
   </ItemGroup>
 </Project>
