@@ -65,7 +65,7 @@ void ResourceLoader::loadTexture(string filename, GLenum textureType)
 {
 	if (textures.find(filename) == textures.end())
 	{
-		Texture*t = new Texture((filename + ".bmp").c_str(), textureType);
+		Texture*t = new Texture((filename).c_str(), textureType);
 		textures[filename] = t;
 	}
 }
@@ -132,7 +132,7 @@ void ResourceLoader::loadModel(string filename, bool indexed)
 {
 	if (models.find(filename) == models.end())
 	{
-		Model *m = new Model(filename + ".obj", Position_Texture_Normal, indexed);
+		Model *m = new Model(filename, Position_Texture_Normal, indexed);
 		models[filename] = m;
 	};
 }

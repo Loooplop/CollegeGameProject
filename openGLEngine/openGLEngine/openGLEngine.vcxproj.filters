@@ -28,6 +28,9 @@
     <Filter Include="OpenGL Elements">
       <UniqueIdentifier>{8c8e8ad9-19b4-411f-8a34-f6b4ec40ac4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{1738e1bc-abcb-4957-a829-ff31a1baf28a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DisplayManager.cpp">
@@ -73,6 +76,9 @@
     <ClCompile Include="TerrainRenderer.cpp" />
     <ClCompile Include="FrameBuffer.cpp">
       <Filter>OpenGL Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationFrame.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +136,12 @@
     <ClInclude Include="TerrainRenderer.h" />
     <ClInclude Include="FrameBuffer.h">
       <Filter>OpenGL Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="InterpolatingFunctions.h">
+      <Filter>Linear Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationFrame.h">
+      <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
