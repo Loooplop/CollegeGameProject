@@ -86,6 +86,32 @@ void EntityRenderer::renderScene(Camera & camera, Light light)
 	};
 }
 
+void EntityRenderer::renderSceneToFrameBuffer(Camera & camera, Light light, FrameBuffer & frameBuffer, bool needClear)
+{
+	prepare();
+	frameBuffer.bindFrameBuffer();
+	if (needClear)
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+	renderScene(camera, light);
+	frameBuffer.unbindFrameBuffer();
+	unprepare();
+}
+
+void EntityRenderer::renderToFrameBuffer(Camera & camera, Light light, FrameBuffer & frameBuffer, bool needClear)
+{
+	prepare();
+	frameBuffer.bindFrameBuffer();
+	if (needClear)
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+	render(camera, light);
+	frameBuffer.unbindFrameBuffer();
+	unprepare();
+}
+
 void EntityRenderer::unprepare()
 {
 	rendererProgram->stop();

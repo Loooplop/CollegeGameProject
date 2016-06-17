@@ -23,7 +23,7 @@ bool DisplayManager::Init(char* windowName, vec2i windowSize, vec2i openGLVersio
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
 
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL 
-	window = glfwCreateWindow(windowSize.getX(), windowSize.getY(), windowName, NULL, NULL);
+	window = glfwCreateWindow(windowSize.getX(), windowSize.getY(), windowName, glfwGetPrimaryMonitor(), NULL);
 	glfwSetInputMode(DisplayManager::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetWindowSizeCallback(DisplayManager::window,DisplayManager::resize_callback);
 	if (!window)
@@ -36,7 +36,6 @@ bool DisplayManager::Init(char* windowName, vec2i windowSize, vec2i openGLVersio
 	Error = (err != 0) || (Err != GLEW_OK);
 	glViewport(0, 0, windowSize.getX(), windowSize.getY());
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_CULL_FACE);
 	std::cout << glfwGetWindowAttrib(DisplayManager::window, GLFW_CONTEXT_VERSION_MAJOR) << std::endl;
 	std::cout << glfwGetWindowAttrib(DisplayManager::window, GLFW_CONTEXT_VERSION_MINOR) << std::endl;
 	return Error;
@@ -68,7 +67,7 @@ mat4f DisplayManager::getPerspectiveMatrix()
 	glfwGetWindowSize(window, &width, &height);
 	if (updateNeeded)
 	{
-		DisplayManager::perspectiveMatrix = ::getPerspectiveMatrix<float>(45.0f, (float)width / (float)height, 0.1, 1000);
+		DisplayManager::perspectiveMatrix = ::getPerspectiveMatrix<float>(45.0f, (float)width / (float)height, 0.1, 100);
 		DisplayManager::updateNeeded = false;
 	};
 	return DisplayManager::perspectiveMatrix;

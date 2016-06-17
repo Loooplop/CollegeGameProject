@@ -192,8 +192,11 @@
     <None Include="entityFragment.fs" />
     <None Include="entityVertex.vs" />
     <None Include="fragment.fs" />
+    <None Include="ImageRenderDepth.fs" />
     <None Include="ImageRenderer.fs" />
     <None Include="ImageRenderer.vs" />
+    <None Include="P2Blur.fs" />
+    <None Include="P2Blur.vs" />
     <None Include="textureFragment.fs" />
     <None Include="textureVertex.vs" />
     <None Include="vertex.vs" />

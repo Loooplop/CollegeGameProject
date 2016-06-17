@@ -3,6 +3,7 @@
 #include "entity.h"
 #include "Camera.h"
 #include "Light.h"
+#include "FrameBuffer.h"
 #include <map>
 class EntityRenderer :
 	public Renderer
@@ -18,6 +19,8 @@ public:
 	};
 	void render(Camera &camera,Light light);
 	void renderScene(Camera &camera, Light light);
+	void renderSceneToFrameBuffer(Camera &camera, Light light, FrameBuffer &frameBuffer, bool needClear=true);
+	void renderToFrameBuffer(Camera &camera, Light light, FrameBuffer &frameBuffer, bool needClear = true);
 	void unprepare();
 private:
 	std::map<std::string, std::vector<Entity*>> entityMap;

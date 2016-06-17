@@ -167,5 +167,8 @@
     </None>
     <None Include="ImageRenderer.vs" />
     <None Include="ImageRenderer.fs" />
+    <None Include="P2Blur.fs" />
+    <None Include="P2Blur.vs" />
+    <None Include="ImageRenderDepth.fs" />
   </ItemGroup>
 </Project>

@@ -48,7 +48,7 @@ mat4f Entity::getModelMatrix()
 	if (updateNeeded)
 	{
 		std::cout << "updated" << std::endl;
-		modelMatrix= getRotationYMatrix<float>(rotation.getY(), false)*getTranslationMatrix<float>(position.getX(), position.getY(), position.getZ())*getScaleMatrix<float>(scaleAmount.getX(), scaleAmount.getY(), scaleAmount.getZ());
+		modelMatrix= getRotationYMatrix<float>(rotation.getY(), false)*getScaleMatrix<float>(scaleAmount.getX(), scaleAmount.getY(), scaleAmount.getZ())*getTranslationMatrix<float>(position.getX(), position.getY(), position.getZ());
 		updateNeeded = false;
 	}
 	return modelMatrix;

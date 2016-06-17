@@ -97,11 +97,14 @@ void ResourceLoader::CleanUpResourceLoader()
 		delete it->second;
 	}
 	textures.clear();
+	models.clear();
 }
 inline bool fileExists(std::string filename)
 {
 	std::ifstream f(filename);
-	return f.good();
+	bool isGood = f.good();
+	f.close();
+	return isGood;
 }
 void ResourceLoader::loadResourcesFromFile(std::string filename)
 {
