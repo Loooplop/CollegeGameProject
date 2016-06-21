@@ -60,6 +60,9 @@ void ResourceLoader::loadModelfromOBJFile(const char* filename, int flag,bool in
 	{
 		model->uploadDataToElement(temp.indexbuffer);
 	}
+	temp.normal.clear();
+	temp.position.clear();
+	temp.textureCoordinates.clear();
 }
 void ResourceLoader::loadTexture(string filename, GLenum textureType)
 {

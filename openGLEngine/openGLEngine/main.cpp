@@ -62,7 +62,12 @@ int main()
 		camera.RotateUp(DisplayManager::getCursorPosition().getY()*0.2f);
 		DisplayManager::setCursorPosition(vec2f(0, 0));
 		
-		//Logic
+
+
+
+
+
+		//Render Logic
 		renderer.process(&light);
 		renderer.process(&lightPosition);
 
