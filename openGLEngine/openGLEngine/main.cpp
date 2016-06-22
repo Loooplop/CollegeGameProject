@@ -78,6 +78,7 @@ int main()
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		imgRen.render(inverseColor.getColorTexture());
 		depthImgRen.render(inverseColor.getDepthTexture(), vec2f(100, 75), vec2f(200, 150));
+
 		//Swapping buffers
 		DisplayManager::SwapBuffers();
 

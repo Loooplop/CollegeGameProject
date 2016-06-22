@@ -81,6 +81,12 @@
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="ImageRenderer.cpp" />
+    <ClCompile Include="Font.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">
@@ -145,6 +151,12 @@
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="ImageRenderer.h" />
+    <ClInclude Include="Font.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="entityFragment.fs">
