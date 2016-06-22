@@ -161,6 +161,7 @@
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainRenderer.cpp" />
     <ClCompile Include="Text.cpp" />
+    <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TexturedModel.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainRenderer.h" />
     <ClInclude Include="Text.h" />
+    <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TexturedModel.h" />
     <ClInclude Include="Camera.h" />
@@ -201,6 +203,8 @@
     <None Include="ImageRenderer.vs" />
     <None Include="P2Blur.fs" />
     <None Include="P2Blur.vs" />
+    <None Include="TextRenderer.fs" />
+    <None Include="TextRenderer.vs" />
     <None Include="textureFragment.fs" />
     <None Include="textureVertex.vs" />
     <None Include="vertex.vs" />

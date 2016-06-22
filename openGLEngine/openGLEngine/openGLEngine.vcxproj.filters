@@ -66,26 +66,33 @@
     <ClCompile Include="EntityRenderer.cpp">
       <Filter>Resource Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Program.cpp">
-      <Filter>Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Light.cpp">
       <Filter>Lights</Filter>
     </ClCompile>
-    <ClCompile Include="TerrainRenderer.cpp" />
     <ClCompile Include="FrameBuffer.cpp">
       <Filter>OpenGL Elements</Filter>
     </ClCompile>
     <ClCompile Include="AnimationFrame.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="ImageRenderer.cpp" />
     <ClCompile Include="Font.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
     <ClCompile Include="Text.cpp">
       <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageRenderer.cpp">
+      <Filter>Resource Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Program.cpp">
+      <Filter>OpenGL Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainRenderer.cpp">
+      <Filter>Resource Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="TextRenderer.cpp">
+      <Filter>Resource Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,13 +141,9 @@
     <ClInclude Include="EntityRenderer.h">
       <Filter>Resource Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Program.h">
-      <Filter>Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>Lights</Filter>
     </ClInclude>
-    <ClInclude Include="TerrainRenderer.h" />
     <ClInclude Include="FrameBuffer.h">
       <Filter>OpenGL Elements</Filter>
     </ClInclude>
@@ -150,12 +153,23 @@
     <ClInclude Include="AnimationFrame.h">
       <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="ImageRenderer.h" />
     <ClInclude Include="Font.h">
       <Filter>Resource</Filter>
     </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageRenderer.h">
+      <Filter>Resource Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Program.h">
+      <Filter>OpenGL Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainRenderer.h">
+      <Filter>Resource Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="TextRenderer.h">
+      <Filter>Resource Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -177,10 +191,26 @@
     <None Include="vertex.vs">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="ImageRenderer.vs" />
-    <None Include="ImageRenderer.fs" />
-    <None Include="P2Blur.fs" />
-    <None Include="P2Blur.vs" />
-    <None Include="ImageRenderDepth.fs" />
+    <None Include="ImageRenderer.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="ImageRenderer.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="ImageRenderDepth.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="P2Blur.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="P2Blur.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="TextRenderer.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="TextRenderer.fs">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

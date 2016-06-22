@@ -20,7 +20,14 @@ public:
 	{
 		return textFont;
 	};
-
+	std::vector<int> &getTextGlyphCodes()
+	{
+		return textGlyphCodes;
+	};
+	vec2f getTextLocation()
+	{
+		return textPosition;
+	}
 private:
 	Font *textFont;
 	std::vector<int> textGlyphCodes;

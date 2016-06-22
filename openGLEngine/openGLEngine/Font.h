@@ -25,7 +25,6 @@ public:
 	int getGlyphCode(char character);
 	bool characterExists(char character);
 private:
-	void populateGlyphCodeMap(std::string filename);
 
 	Texture *fontAtlas;
 	int glyphsPerRow;
