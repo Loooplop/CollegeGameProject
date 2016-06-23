@@ -2,6 +2,7 @@
 #include <vector>
 map<string, Model*>ResourceLoader::models = map<string, Model*>();
 map<string, Texture*> ResourceLoader::textures = map<string, Texture*>();
+map<string, Font*> ResourceLoader::fonts = map<string, Font*>();
 ResourceLoader::ResourceLoader()
 {
 
@@ -81,12 +82,31 @@ Texture * ResourceLoader::getTexture(string filename)
 	}
 	return textures["notFound"];
 }
+void ResourceLoader::loadFont(string filename)
+{
+	if (fonts.find(filename) == fonts.end())
+	{
+		Font *f = new Font(filename.c_str());
+		fonts[filename] = f;
+	}
+}
+Font * ResourceLoader::getFont(string filename)
+{
+	auto it = fonts.find(filename);
+	if (it != fonts.end())
+	{
+		return fonts[filename];
+	}
+	return fonts["notFound"];
+}
 void ResourceLoader::InitResourceLoader()
 {
 	textures = map<string, Texture*>();
 	models = map<string, Model*>();
+	fonts = map<string, Font*>();
 	textures["notFound"] = new Texture("notFound.bmp", GL_TEXTURE_2D);
 	models["notFound"] = new Model("notFound.obj", Position_Texture_Normal, false);
+	fonts["notFound"] = new Font("notFound.fnt");
 }
 void ResourceLoader::CleanUpResourceLoader()
 {
@@ -100,7 +120,11 @@ void ResourceLoader::CleanUpResourceLoader()
 		delete it->second;
 	}
 	textures.clear();
-	models.clear();
+	for (map<string, Font*>::iterator it = fonts.begin(); it != fonts.end(); it++)
+	{
+		delete it->second;
+	}
+	fonts.clear();
 }
 inline bool fileExists(std::string filename)
 {

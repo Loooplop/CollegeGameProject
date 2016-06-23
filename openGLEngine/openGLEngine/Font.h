@@ -24,6 +24,10 @@ public:
 	};
 	int getGlyphCode(char character);
 	bool characterExists(char character);
+	int getGlyphsPerRow()
+	{
+		return glyphsPerRow;
+	}
 private:
 
 	Texture *fontAtlas;

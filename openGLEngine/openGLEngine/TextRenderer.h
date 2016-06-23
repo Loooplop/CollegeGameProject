@@ -10,7 +10,7 @@ class TextRenderer
 public:
 	TextRenderer();
 	~TextRenderer();
-	void render(Text &text);
+	void render(Text *text);
 private:
 	Model *model;
 	Program *prog;

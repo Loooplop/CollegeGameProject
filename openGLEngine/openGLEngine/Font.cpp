@@ -48,5 +48,5 @@ int Font::getGlyphCode(char character)
 
 bool Font::characterExists(char character)
 {
-	return glyphCode.find(character) == glyphCode.end();
+	return glyphCode.find(character) != glyphCode.end();
 }

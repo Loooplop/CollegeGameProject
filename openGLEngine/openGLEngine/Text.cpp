@@ -23,13 +23,13 @@ void Text::add(std::string string)
 {
 	for (int i = 0; i < string.size(); i++)
 	{
-		if (!textFont->characterExists(string[i]))
+		if (textFont->characterExists(string[i]))
 		{
-			textGlyphCodes.push_back(0);
+			textGlyphCodes.push_back(textFont->getGlyphCode(string[i]));
 		}
 		else
 		{
-			textGlyphCodes.push_back(textFont->getGlyphCode(string[i]));
+			textGlyphCodes.push_back(0);
 		}
 	}
 }

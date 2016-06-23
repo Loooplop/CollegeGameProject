@@ -5,5 +5,6 @@ munit2.obj
 mfield.obj
 mtriangle.obj
 mImgScreen.obj
+mtextModel.obj
 tfloortex.bmp
 tfaces.bmp

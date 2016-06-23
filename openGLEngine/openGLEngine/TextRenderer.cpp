@@ -4,7 +4,7 @@
 
 TextRenderer::TextRenderer()
 {
-	model = ResourceLoader::getModel("ImgScreen.obj");
+	model = ResourceLoader::getModel("textModel.obj");
 	prog = new Program("TextRenderer.vs", "TextRenderer.fs");
 	prog->start();
 	prog->uploadUniform_vec2("screenSize", DisplayManager::getScreenSize());
@@ -17,26 +17,27 @@ TextRenderer::~TextRenderer()
 	delete prog;
 }
 
-void TextRenderer::render(Text & text)
+void TextRenderer::render(Text *text)
 {
-	Font *f = text.getFont();
-	std::vector<int> codes = text.getTextGlyphCodes();
-	
+	Font *f = text->getFont();
 	glDisable(GL_DEPTH_TEST);
 	prog->start();
-	prog->uploadUniform_vec2("cellSize", f->getGlyphSize());
+	prog->uploadUniform_vec2("glyphSize", f->getGlyphSize());
 	prog->uploadFloat("atlasTextureSize", f->getTextureSize());
+	prog->uploadFloat("glyphsPerRow", f->getGlyphsPerRow());
 	model->prepareModel();
 	f->getTexture()->bindTexture();
-	for (int i = 0; i < codes.size(); i++)
+	for (int i = 0; i < text->getTextGlyphCodes().size(); i++)
 	{
-		prog->uploadUniform_vec2("textBottomLeftLocation", vec2f(text.getTextLocation().getX() + f->getGlyphSize().getX()*i, text.getTextLocation().getY()));
-		prog->uploadFloat("glyphCode", codes[i]);
-		model->renderModel();
+		std::cout << text->getTextGlyphCodes()[i] << "!__!"<<std::endl;
+			prog->uploadUniform_vec2("textBottomLeftLocation", vec2f(text->getTextLocation().getX() + f->getGlyphSize().getX()*i, text->getTextLocation().getY()));
+			prog->uploadFloat("glyphCode", text->getTextGlyphCodes()[i]);
+			model->renderModel();
 	}
 
 	f->getTexture()->unbindTexture();
 	model->unprepareModel();
 	prog->stop();
 	glEnable(GL_DEPTH_TEST);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }

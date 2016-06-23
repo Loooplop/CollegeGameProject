@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 #include "ImageRenderer.h"
+#include "TextRenderer.h"
 int main()
 {
 	//Debug
@@ -27,6 +28,7 @@ int main()
 	ImageRenderer imgRen;
 	ImageRenderer depthImgRen("ImageRenderer.vs", "ImageRenderDepth.fs");
 	EntityRenderer renderer;
+	TextRenderer textRen;
 
 	//Scene Components
 	Camera camera(vec3f(0, 1, 0));
@@ -36,9 +38,14 @@ int main()
 	FrameBuffer inverseColor(DisplayManager::getScreenSize().getX(), DisplayManager::getScreenSize().getY());
 	Entity light(ResourceLoader::getModel("field.obj"), ResourceLoader::getTexture("faces.bmp"), vec3f(-0, 0, -0), vec3f(0, 0, 0), vec3f(1, 1, 1));
 	Entity lightPosition(ResourceLoader::getModel("sphere.obj"), ResourceLoader::getTexture("faces.bmp"), vec3f(0, 6, 0), vec3f(0, 0, 0), vec3f(0.2, 0.2, 0.2));
+	Text depthName("Depth Texture",ResourceLoader::getFont("default"),vec2f(0,0));
 	//Main Loop
+	float x = 0;
 	while (!DisplayManager::getWindowCloseFlag())
 	{
+		x++;
+		depthName.clear();
+		depthName.add(x);
 		DisplayManager::PollWindowEvents();
 
 		//Input
@@ -78,6 +85,7 @@ int main()
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		imgRen.render(inverseColor.getColorTexture());
 		depthImgRen.render(inverseColor.getDepthTexture(), vec2f(100, 75), vec2f(200, 150));
+		textRen.render(&depthName);
 
 		//Swapping buffers
 		DisplayManager::SwapBuffers();
