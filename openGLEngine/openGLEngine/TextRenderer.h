@@ -14,5 +14,6 @@ public:
 private:
 	Model *model;
 	Program *prog;
+	Font* currentFont;
 };
 

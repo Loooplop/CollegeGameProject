@@ -8,6 +8,7 @@ uniform vec2 glyphSize;
 uniform float atlasTextureSize;
 uniform float glyphsPerRow;
 uniform float glyphCode;
+uniform vec3 textColor;
 
 void main()
 {
@@ -26,6 +27,5 @@ void main()
  {
 	discard;
  }
- vec3 outColor=vec3(texture(sampler,uv).x,texture(sampler,uv).y,texture(sampler,uv).z);
- finalColor=vec4(outColor,1);
+ finalColor=vec4(textColor,1);
 }

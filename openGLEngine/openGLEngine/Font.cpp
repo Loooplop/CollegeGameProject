@@ -30,6 +30,10 @@ Font::Font(const char * filename)
 		{
 			glyphCode[i] = i - 32;
 		}
+		/*
+		
+		
+		*/
 	}
 	file.close();
 }
@@ -39,6 +43,7 @@ Font::~Font()
 {
 	delete fontAtlas;
 	glyphCode.clear();
+	std::cout << "Destroyed Font" << std::endl;
 }
 
 int Font::getGlyphCode(char character)

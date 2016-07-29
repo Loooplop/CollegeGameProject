@@ -23,21 +23,19 @@ void TextRenderer::render(Text *text)
 	glDisable(GL_DEPTH_TEST);
 	prog->start();
 	prog->uploadUniform_vec2("glyphSize", f->getGlyphSize());
-	prog->uploadFloat("atlasTextureSize", f->getTextureSize());
+	prog->uploadFloat("atlasTextureSize", f->getTextureSize());	
 	prog->uploadFloat("glyphsPerRow", f->getGlyphsPerRow());
+	prog->uploadUniform_vec3("textColor", text->getTextColor());
 	model->prepareModel();
 	f->getTexture()->bindTexture();
 	for (int i = 0; i < text->getTextGlyphCodes().size(); i++)
 	{
-		std::cout << text->getTextGlyphCodes()[i] << "!__!"<<std::endl;
 			prog->uploadUniform_vec2("textBottomLeftLocation", vec2f(text->getTextLocation().getX() + f->getGlyphSize().getX()*i, text->getTextLocation().getY()));
 			prog->uploadFloat("glyphCode", text->getTextGlyphCodes()[i]);
 			model->renderModel();
 	}
-
 	f->getTexture()->unbindTexture();
 	model->unprepareModel();
 	prog->stop();
 	glEnable(GL_DEPTH_TEST);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }

@@ -8,7 +8,7 @@ class DisplayManager
 public:
 	
 	~DisplayManager();
-	static bool Init(char* windowName, vec2i windowSize, vec2i openGLVersion);
+	static bool Init(char* windowName, vec2i windowSize, vec2i openGLVersion, bool setVsync);
 	static void resize_callback(GLFWwindow* window, int width, int height)
 	{
 		DisplayManager::updateNeeded = true;

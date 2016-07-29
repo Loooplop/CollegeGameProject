@@ -6,7 +6,7 @@ class Text
 {
 public:
 	Text();
-	Text(std::string initialString, Font *font, vec2f initialTextPosition);
+	Text(std::string initialString, Font *font, vec2f initialTextPosition,vec3f initialtextColor =vec3f(0,0,0));
 	~Text();
 	
 
@@ -28,10 +28,14 @@ public:
 	{
 		return textPosition;
 	}
+	vec3f getTextColor()
+	{
+		return textColor;
+	}
 private:
 	Font *textFont;
 	std::vector<int> textGlyphCodes;
 	vec2f textPosition;
-	
+	vec3f textColor;
 };
 

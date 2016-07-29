@@ -6,11 +6,12 @@ Text::Text()
 {
 }
 
-Text::Text(std::string initialString, Font * font, vec2f initialTextPosition)
+Text::Text(std::string initialString, Font * font, vec2f initialTextPosition, vec3f initialtextColor)
 {
 	textFont = font;
 	add(initialString);
 	textPosition = initialTextPosition;
+	textColor = initialtextColor;
 }
 
 

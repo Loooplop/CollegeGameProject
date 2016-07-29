@@ -155,6 +155,13 @@ void ResourceLoader::loadResourcesFromFile(std::string filename)
 				loadTexture(line.substr(1), GL_TEXTURE_2D);
 			}
 		}
+		else if (line[0] == 'f')
+		{
+			if (fileExists(line.substr(1)))
+			{
+				loadFont(line.substr(1));
+			}
+		}
 	}
 	file.close();
 }

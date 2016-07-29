@@ -35,5 +35,6 @@ private:
 	vec2f glyphSize;
 	int textureSize;
 	std::map<char, int> glyphCode;
+	std::map<char,vec2f> glyphInfo;
 };
 

@@ -11,7 +11,7 @@ DisplayManager::~DisplayManager()
 {
 
 }
-bool DisplayManager::Init(char* windowName, vec2i windowSize, vec2i openGLVersion)
+bool DisplayManager::Init(char* windowName, vec2i windowSize, vec2i openGLVersion, bool setVsync)
 {
 	bool Error = false;
 	int err = glfwInit();
@@ -31,6 +31,7 @@ bool DisplayManager::Init(char* windowName, vec2i windowSize, vec2i openGLVersio
 		std::cout << "Error creating window" << std::endl;
 	}
 	glfwMakeContextCurrent(window);
+	glfwSwapInterval(setVsync);
 	glewExperimental = GL_TRUE;
 	GLenum Err = glewInit();
 	Error = (err != 0) || (Err != GLEW_OK);
@@ -67,7 +68,7 @@ mat4f DisplayManager::getPerspectiveMatrix()
 	glfwGetWindowSize(window, &width, &height);
 	if (updateNeeded)
 	{
-		DisplayManager::perspectiveMatrix = ::getPerspectiveMatrix<float>(45.0f, (float)width / (float)height, 0.1, 100);
+		DisplayManager::perspectiveMatrix = ::getPerspectiveMatrix<float>(45.0f, (float)width / (float)height, 0.1, 1000);
 		DisplayManager::updateNeeded = false;
 	};
 	return DisplayManager::perspectiveMatrix;
