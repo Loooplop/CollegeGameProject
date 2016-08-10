@@ -78,6 +78,7 @@ int main()
 		renderer.process(&lightPosition);
 
 		depthName->clear();
+		depthName->add("Frames Per Second: ");
 		depthName->add(delta);
 
 		//Raw Render

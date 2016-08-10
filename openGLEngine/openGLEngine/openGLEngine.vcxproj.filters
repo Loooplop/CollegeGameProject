@@ -213,4 +213,7 @@
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="ThoughtFile.txt" />
+  </ItemGroup>
 </Project>

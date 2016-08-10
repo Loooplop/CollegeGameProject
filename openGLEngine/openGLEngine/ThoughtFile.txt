@@ -1,0 +1,16 @@
+float currentRow=float(int(glyphCode)/int(glyphsPerRow));
+  if(mod(glyphCode,glyphsPerRow)==0)
+  {
+  currentRow=currentRow-1;
+  }
+  float currentColumn=mod(glyphCode-1,glyphsPerRow)+1;
+  vec2 uv=vec2(0,0);
+  uv.x=((currentColumn+pass_tex.x-1)*glyphSize.x)/atlasTextureSize;
+  uv.y=1-(glyphSize.y*(currentRow+1-pass_tex.y)/atlasTextureSize);
+
+  float currentRow=int(glyphCode)/int(glyphsPerRow);
+  if(glyphCode%glyphsPerRow==0)
+	currentRow--;
+  float currentColumn=((glyphCode-1)%glyphsPerRow)+1;
+float x=((currentColumn-1)*glyphSize.x)/atlasTextureSize;
+float y=((currentRow+1)*glyphSize.y)/atlasTextureSize;

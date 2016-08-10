@@ -209,6 +209,9 @@
     <None Include="textureVertex.vs" />
     <None Include="vertex.vs" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="ThoughtFile.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

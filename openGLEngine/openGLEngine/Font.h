@@ -23,6 +23,14 @@ public:
 		return textureSize;
 	};
 	int getGlyphCode(char character);
+	vec2f getLocation(char character)
+	{
+		if (characterExists(character))
+		{
+			return glyphBottomLeftLocation[character];
+		}
+		return vec2f();
+	};
 	bool characterExists(char character);
 	int getGlyphsPerRow()
 	{
@@ -35,6 +43,6 @@ private:
 	vec2f glyphSize;
 	int textureSize;
 	std::map<char, int> glyphCode;
-	std::map<char,vec2f> glyphInfo;
+	std::map<char,vec2f> glyphBottomLeftLocation;
 };
 

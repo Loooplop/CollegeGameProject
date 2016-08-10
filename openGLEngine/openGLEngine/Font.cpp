@@ -26,14 +26,20 @@ Font::Font(const char * filename)
 		textureSize = std::stoi(line);
 
 		glyphCode = std::map<char, int>();
+		glyphBottomLeftLocation = std::map<char, vec2f>();
 		for (int i = 33; i <= 126; i++)
 		{
 			glyphCode[i] = i - 32;
+			float currentRow = int(i - 32) / int(glyphsPerRow);
+			if ((i - 32) % glyphsPerRow == 0)
+			{
+				currentRow--;
+			};
+			float currentColumn = ((i - 32 - 1) % glyphsPerRow) + 1;
+			float x = ((currentColumn - 1)*glyphSize.getX()) / textureSize;
+			float y = 1-(((currentRow + 1)*glyphSize.getY()) / textureSize);
+			glyphBottomLeftLocation[i] = vec2f(x, y);
 		}
-		/*
-		
-		
-		*/
 	}
 	file.close();
 }
