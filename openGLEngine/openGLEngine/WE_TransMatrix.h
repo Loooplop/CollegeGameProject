@@ -100,3 +100,12 @@ mat4<type> getPerspectiveMatrix(double FOV, double aspectRatio, double znear, do
 		0, 0, -((zfar + znear) / (zfar - znear)), -((2 * zfar*znear) / (zfar - znear)),
 		0, 0, -1, 0);*/
 }
+
+template<typename type>
+mat4<type> getOrthographicMatrix(double top, double bottom, double left, double right, double near, double far)
+{
+	return mat4<type>(2 / (right - left), 0, 0, -((right + left) / (right - left)),
+					  0, 2 / (top - bottom), 0, -((top + bottom) / (top - bottom)),
+					  0, 0, -2 / (far - near), -((far + near) / (far - near)),
+					  0, 0, 0, 1);
+}

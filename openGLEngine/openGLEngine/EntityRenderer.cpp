@@ -11,6 +11,7 @@ EntityRenderer::EntityRenderer()
 	rendererProgram->uploadUniform_mat4("mat4_viewMatrix", getViewMatrix<float>(vec3f(0, 0, 2), vec3f(0, 0, 0), vec3f(0, 1, 0)), false);
 	rendererProgram->uploadUniform_mat4("mat4_modelMatrix", getTranslationMatrix<float>(0,0,0), false);
 	rendererProgram->stop();
+	amountOfObjectsProcessed = 0;
 }
 
 
@@ -35,6 +36,7 @@ void EntityRenderer::process(void  *renderableObject)
 		entityMap[modelName] = std::vector<Entity*>();
 	}
 	entityMap[modelName].push_back(e);
+	amountOfObjectsProcessed++;
 }
 
 void EntityRenderer::render(Camera &camera,Light light)
@@ -61,6 +63,7 @@ void EntityRenderer::render(Camera &camera,Light light)
 		it->second[0]->getModel()->unprepareModel();
 	};
 	entityMap.clear();
+	amountOfObjectsProcessed = 0;
 }
 
 void EntityRenderer::renderScene(Camera & camera, Light light)

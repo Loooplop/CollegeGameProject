@@ -50,6 +50,15 @@ void Text::add(double number)
 	add(std::to_string(number));
 }
 
+void Text::add(vec3f number)
+{
+	add(number.getX());
+	add(", ");
+	add(number.getY());
+	add(", ");
+	add(number.getZ());
+}
+
 void Text::clear()
 {
 	textGlyphCodes.clear();

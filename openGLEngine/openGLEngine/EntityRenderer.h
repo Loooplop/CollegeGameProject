@@ -22,7 +22,12 @@ public:
 	void renderSceneToFrameBuffer(Camera &camera, Light light, FrameBuffer &frameBuffer, bool needClear=true);
 	void renderToFrameBuffer(Camera &camera, Light light, FrameBuffer &frameBuffer, bool needClear = true);
 	void unprepare();
+	float getAmountOfObjectsProccessed()
+	{
+		return amountOfObjectsProcessed;
+	}
 private:
 	std::map<std::string, std::vector<Entity*>> entityMap;
+	float amountOfObjectsProcessed;
 };
 

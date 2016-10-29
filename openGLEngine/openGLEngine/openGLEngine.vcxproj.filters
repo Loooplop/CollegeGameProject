@@ -94,6 +94,7 @@
     <ClCompile Include="TextRenderer.cpp">
       <Filter>Resource Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="MasterRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DisplayManager.h">
@@ -171,6 +172,7 @@
     <ClInclude Include="TextRenderer.h">
       <Filter>Resource Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="MasterRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="entityFragment.fs">

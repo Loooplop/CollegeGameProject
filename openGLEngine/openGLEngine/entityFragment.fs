@@ -26,6 +26,7 @@ void main()
 	float att=(light_attenuation.x+distance*light_attenuation.y+distance*distance*light_attenuation.z);
 
     finalColor=texture(sampler,pass_tex)*vec4((diffuseLight+vec3(1,1,1)*pow(max(0.0,specularAngle),64))/att,1);
-	float amount=(finalColor.x+finalColor.y+finalColor.z)/3;
+	//float amount=(finalColor.x+finalColor.y+finalColor.z)/3;
 	//finalColor=vec4(amount,amount,amount,1.0);
+	finalColor=vec4(1,0,0,1);
 }

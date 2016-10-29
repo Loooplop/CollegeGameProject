@@ -14,6 +14,7 @@ public:
 	void add(int number);
 	void add(float number);
 	void add(double number);
+	void add(vec3f number);
 	void clear();
 
 	Font *getFont()

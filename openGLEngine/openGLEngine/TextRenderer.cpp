@@ -27,13 +27,15 @@ void TextRenderer::render(Text *text)
 	prog->uploadUniform_vec2("glyphSize", f->getGlyphSize());
 	model->prepareModel();
 	f->getTexture()->bindTexture();
-	for (int i = 0; i < text->getTextGlyphCodes().size(); i++)
+	std::vector<int>& codes = text->getTextGlyphCodes();
+	for (int i = 0; i < codes.size(); i++)
 	{
-		
+		if (codes[i]>0)
+		{
 			prog->uploadUniform_vec2("textBottomLeftLocation", vec2f(text->getTextLocation().getX() + f->getGlyphSize().getX()*i, text->getTextLocation().getY()));
-			prog->uploadUniform_vec2("UVGlyphBottomLocation", f->getLocation(text->getTextGlyphCodes()[i]+32));
+			prog->uploadUniform_vec2("UVGlyphBottomLocation", f->getLocation(codes[i] + 32));
 			model->renderModel();
-		
+		};
 	}
 	f->getTexture()->unbindTexture();
 	model->unprepareModel();

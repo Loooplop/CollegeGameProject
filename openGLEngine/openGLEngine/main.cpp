@@ -1,7 +1,6 @@
 #include "DisplayManager.h"
 #include "Program.h"
 #include "ResourceLoader.h"
-#include "EntityRenderer.h"
 #include "Terrain.h"
 #include "AnimationFrame.h"
 #include "FrameBuffer.h"
@@ -9,8 +8,8 @@
 #define CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
-#include "ImageRenderer.h"
-#include "TextRenderer.h"
+#include <time.h>
+#include "MasterRenderer.h"
 int main()
 {
 	//Debug
@@ -25,10 +24,7 @@ int main()
     ResourceLoader::loadResourcesFromFile("resources.rc");
 
 	//Renderers
-	ImageRenderer imgRen;
-	ImageRenderer depthImgRen("ImageRenderer.vs", "ImageRenderDepth.fs");
-	EntityRenderer renderer;
-	TextRenderer textRen;
+	MasterRenderer masRen;
 
 	//Scene Components
 	Camera camera(vec3f(0, 1, 0));
@@ -36,9 +32,10 @@ int main()
 
 	//Scene Resources
 	FrameBuffer *inverseColor=new FrameBuffer(DisplayManager::getScreenSize().getX(), DisplayManager::getScreenSize().getY());
-	Entity light(ResourceLoader::getModel("field.obj"), ResourceLoader::getTexture("faces.bmp"), vec3f(-0, 0, -0), vec3f(0, 0, 0), vec3f(1, 1, 1));
-	Entity lightPosition(ResourceLoader::getModel("sphere.obj"), ResourceLoader::getTexture("faces.bmp"), vec3f(0, 6, 0), vec3f(0, 0, 0), vec3f(0.2, 0.2, 0.2));
+	Entity lightPosition(ResourceLoader::getModel("sphere.obj"), ResourceLoader::getTexture("faces.bmp"), vec3f(0, 0, 0), vec3f(0, 0, 0), vec3f(0.2, 0.2, 0.2));
 	Text *depthName = new Text("Depth Texture",ResourceLoader::getFont("default"),vec2f(0,1080-64),vec3f(1,0,1));
+	Text *numOfObjects = new Text(" ", ResourceLoader::getFont("default"), vec2f(0, 1080 - 128), vec3f(1, 0, 0));
+	Text *FPS = new Text(" ", ResourceLoader::getFont("default"), vec2f(0, 1080 - 128 - 64), vec3f(1, 1, 0));
 	//Main Loop
 	float time = 1;
 	float delta = 1;
@@ -46,7 +43,7 @@ int main()
 	{
 		time = glfwGetTime();
 		DisplayManager::PollWindowEvents();
-
+		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		//Input
 		if (DisplayManager::getKeyStatus(GLFW_KEY_S))
 		{
@@ -67,30 +64,38 @@ int main()
 		camera.RotateRight(DisplayManager::getCursorPosition().getX()*0.2f);
 		camera.RotateUp(DisplayManager::getCursorPosition().getY()*0.2f);
 		DisplayManager::setCursorPosition(vec2f(0, 0));
+		//Update
 		
 
 
 
 
 
-		//Render Logic
-		renderer.process(&light);
-		renderer.process(&lightPosition);
 
+
+
+
+
+
+
+		//Rendering
 		depthName->clear();
-		depthName->add("Frames Per Second: ");
-		depthName->add(delta);
+		depthName->add("Time Between Frame: ");
+		depthName->add(1/delta);
 
-		//Raw Render
-		renderer.renderToFrameBuffer(camera, sun, *inverseColor);
+		FPS->clear();
+		FPS->add("Light Position");
+		FPS->add(lightPosition.getPosition());
 
-		//Texture Manipulation and sending framebuffer to screen
-		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-		imgRen.render(inverseColor->getColorTexture());
-		depthImgRen.render(inverseColor->getDepthTexture(), vec2f(100, 75), vec2f(200, 150));
-		textRen.render(depthName);
+		masRen.process(&lightPosition);
 
-		//Swapping buffers
+		masRen.process(depthName);
+		masRen.process(FPS);
+		
+		masRen.prepare();
+		masRen.render(camera, sun);
+		masRen.unprepare();
+
 		DisplayManager::SwapBuffers();
 
 		//Frames per second
@@ -104,9 +109,12 @@ int main()
 	};
 
 	//Cleaning up and Releasing Allocated Memory
-	ResourceLoader::CleanUpResourceLoader();
+	masRen.cleanUp();
 	delete depthName;
+	delete FPS;
+	delete numOfObjects;
 	delete inverseColor;
+	ResourceLoader::CleanUpResourceLoader();
 	DisplayManager::UnInit();
 
 	//Debug
